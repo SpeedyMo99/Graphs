@@ -61,6 +61,10 @@ public class Node {
         return this.color;
     }
 
+    public void setColor(int color){
+        this.color = color;
+    }
+
     public int deg() {
         return this.getNeighbors().size();
     }

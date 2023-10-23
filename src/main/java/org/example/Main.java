@@ -22,24 +22,10 @@ public class Main {
         g.addEdge(1, "3", "4");
         g.addEdge(1, "4", "1");
         g.addEdge(1, "1", "6");
+        g.addEdge(1, "5", "6");
 
-        System.out.println(g.minDeg());
-        System.out.println(g.maxDeg());
-
-
-       /* Edge e = new Edge(1, g.getNode("hallo"), g.getNode("bla"));
-        g.addEdge(e);
-        if(g.getEdge("hallo", "bla") != null){
-            System.out.println("Noch ists da");
-        }
-        System.out.println(g.getNumEdges());
-        g.removeEdge(g.getNode("hallo"), g.getNode("bla"));
-        if(g.getEdge("hallo", "bla") == null){
-            System.out.println("Jetzt weg");
-        }
-        System.out.println(g.getNumEdges());
-
-        */
+        g.greedyColor();
+        System.out.print(g.getAllNodes());
 
     }
 

@@ -30,10 +30,7 @@ public class Graph {
 
     public ArrayList<Node> getAllNodes() {
         ArrayList<Node> allNodes = new ArrayList<>();
-        Iterator<Map.Entry<String, Node>> iterator = this.nodes.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, Node> entry = iterator.next();
-            Node node = entry.getValue();
+        for (Node node : this.nodes.values()) {
             allNodes.add(node);
         }
         return allNodes;
@@ -41,7 +38,7 @@ public class Graph {
 
     public boolean addEdge(Edge e) {
         if (e.getSrc().name.equalsIgnoreCase(e.getDest().name)) {
-            return false;
+            return false;   //schlingen verboten
         }
         e.getSrc().addOut(e);
         e.getDest().addIn(e);
@@ -54,16 +51,12 @@ public class Graph {
             return false;
         }
         Edge e = new Edge(weight, this.getNode(srcName), this.getNode(destName));
-        this.addEdge(e);
-        return true;
+        return this.addEdge(e);
     }
 
     public int minDeg() {
         int min = Integer.MAX_VALUE;
-        Iterator<Map.Entry<String, Node>> iterator = this.nodes.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, Node> entry = iterator.next();
-            Node node = entry.getValue();
+        for (Node node : this.nodes.values()) {
             if (node.deg() < min) {
                 min = node.deg();
             }
@@ -73,10 +66,7 @@ public class Graph {
 
     public int maxDeg() {
         int max = -1;
-        Iterator<Map.Entry<String, Node>> iterator = this.nodes.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, Node> entry = iterator.next();
-            Node node = entry.getValue();
+        for (Node node : this.nodes.values()) {
             if (node.deg() > max) {
                 max = node.deg();
             }
@@ -138,15 +128,31 @@ public class Graph {
         return (this.getEdge(src, dest) != null) ? true : false;
     }
 
-    public void greedyColor(){
-        //TODO
+    public void greedyColor() {
+        ArrayList<Node> nodes = this.getAllNodes();
+        nodes.get(0).setColor(1);
+        ArrayList<Integer> neighborColors = new ArrayList<>();
+        for (int i = 1; i < nodes.size(); i++) {
+            if (neighborColors.size() != 0) {
+                neighborColors.clear();
+            }
+            Node currentNode = nodes.get(i);
+            for (Node neighbor : currentNode.getNeighbors()) {    //Liste enthält alle farben der nachbarn von node_i
+                neighborColors.add(neighbor.getColor());
+            }
+            int c = 1;
+            while (neighborColors.contains((int) c)) {
+                c++;
+            }
+            currentNode.setColor(c); //c(node_i) = kleinste farbe, die nicht in Fi ist
+        }
     }
 
-    public void contract(Edge edge){
+    public void contract(Edge edge) {
         //TODO - rufe contract(node, node) auf
     }
 
-    public void contract(Node n1, Node n2){
+    public void contract(Node n1, Node n2) {
         //TODO
     }
 
