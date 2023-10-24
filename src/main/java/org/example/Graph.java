@@ -46,6 +46,14 @@ public class Graph {
         return true;
     }
 
+    public boolean addEdge(int weight, Node src, Node dest) {
+        if (src.name.equalsIgnoreCase(dest.name)) {
+            return false;
+        }
+        Edge e = new Edge(weight, src, dest);
+        return this.addEdge(e);
+    }
+
     public boolean addEdge(int weight, String srcName, String destName) {
         if (srcName.equalsIgnoreCase(destName)) {
             return false;
@@ -108,15 +116,15 @@ public class Graph {
     }
 
     public void removeNode(String name) {   //remove node from graph and remove all edges
-        Node removed = nodes.remove(name);
+        Node removed = this.nodes.remove(name);
         if (removed == null) {
             return;
+        } //knoten ist raus, lösche ausgehende und eingehende kanten
+        for (int i = 0; i < removed.getOut().size(); i++) {
+            this.removeEdge(removed.getOut().get(i));
         }
-        for (Edge e : removed.getOut()) {
-            this.removeEdge(e);
-        }
-        for (Edge e : removed.getIn()) {
-            this.removeEdge(e);
+        for (int i = 0; i < removed.getIn().size(); i++) {
+            this.removeEdge(removed.getIn().get(i));
         }
     }
 
@@ -149,15 +157,22 @@ public class Graph {
     }
 
     public void contract(Edge edge) {
-        //TODO - rufe contract(node, node) auf
+        this.contract(edge.getSrc(), edge.getDest());
     }
 
-    public void contract(Node n1, Node n2) {
-        this.contract(this.getEdge(n1, n2));
+    public void contract(Node u, Node v) {
+        ArrayList<Node> neighborsV = v.getNeighbors(); //liste aller nachbarn von v
+        this.removeEdge(u, v);
+        this.removeNode(v);
+        for (Node neighbor : neighborsV) {
+            if (!(this.checkEdge(u, neighbor) || this.checkEdge(neighbor, u))) {
+                this.addEdge(1, u, neighbor);
+            }
+        }
     }
 
-    public void contract(String nodeName1, String nodeName2){
-        this.contract(this.getEdge(nodeName1, nodeName2));
+    public void contract(String nodeName1, String nodeName2) {
+        this.contract(this.nodes.get(nodeName1), this.nodes.get(nodeName2));
     }
 
     public void removeNode(Node node) {

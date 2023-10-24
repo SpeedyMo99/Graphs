@@ -24,8 +24,8 @@ public class Main {
         g.addEdge(1, "1", "6");
         g.addEdge(1, "5", "6");
 
-        g.greedyColor();
-        System.out.print(g.getAllNodes());
+        // g.removeNode("1");
+        g.contract("1", "3");
 
     }
 
