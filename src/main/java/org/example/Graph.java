@@ -102,11 +102,19 @@ public class Graph {
     }
 
     public void removeEdge(String srcName, String destName) {
-        this.removeEdge(this.getEdge(srcName, destName));
+        Edge e = this.getEdge(srcName, destName);
+        if(e == null){
+            //TODO
+        }
+        this.removeEdge(e);
     }
 
     public void removeEdge(Node src, Node dest) {
-        this.removeEdge(this.getEdge(src, dest));
+        Edge e = this.getEdge(src, dest);
+       /* if(e == null){
+            e = this.getEdge(dest, src); //TODO throw exception
+        }*/
+        this.removeEdge(e);
     }
 
     public void removeEdge(Edge e) { //has to be deleted from both nodes
@@ -119,7 +127,7 @@ public class Graph {
         Node removed = this.nodes.remove(name);
         if (removed == null) {
             return;
-        } //knoten ist raus, lösche ausgehende und eingehende kanten
+        } //knoten ist weg, lösche nun ausgehende und eingehende kanten
         for (int i = 0; i < removed.getOut().size(); i++) {
             this.removeEdge(removed.getOut().get(i));
         }
@@ -161,6 +169,10 @@ public class Graph {
     }
 
     public void contract(Node u, Node v) {
+        if(!(this.checkEdge(u, v) || this.checkEdge(v, u))){
+            System.out.println("Kante nicht gefunden");
+            return;
+        }
         ArrayList<Node> neighborsV = v.getNeighbors(); //liste aller nachbarn von v
         this.removeEdge(u, v);
         this.removeNode(v);
@@ -222,6 +234,15 @@ public class Graph {
             System.out.print(" dist=" + u.distance);
             System.out.print(" d=" + u.dTime);
             System.out.println(" f=" + u.fTime);
+        }
+    }
+
+    void printGraph(){
+        System.out.println("Number of Edges: " + this.numEdges);
+        for(Node u : this.nodes.values()){
+            for(Edge e : u.getOut()){
+                System.out.println(e.toString());
+            }
         }
     }
 

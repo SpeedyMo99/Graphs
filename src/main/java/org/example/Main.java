@@ -22,10 +22,9 @@ public class Main {
         g.addEdge(1, "3", "4");
         g.addEdge(1, "4", "1");
         g.addEdge(1, "1", "6");
-        g.addEdge(1, "5", "6");
 
-        // g.removeNode("1");
-        g.contract("1", "3");
+        g.contract("4", "5");
+        g.printGraph(); //TODO test contract method more
 
     }
 

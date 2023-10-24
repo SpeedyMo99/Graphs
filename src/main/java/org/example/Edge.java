@@ -38,4 +38,9 @@ public class Edge {
         return toNode;
     }
 
+    public String toString(){
+        String s = "Edge: Gewicht: " + weight + " From: " + this.fromNode.toString() + " To: " + this.toNode.toString();
+        return s;
+    }
+
 }
