@@ -153,7 +153,11 @@ public class Graph {
     }
 
     public void contract(Node n1, Node n2) {
-        //TODO
+        this.contract(this.getEdge(n1, n2));
+    }
+
+    public void contract(String nodeName1, String nodeName2){
+        this.contract(this.getEdge(nodeName1, nodeName2));
     }
 
     public void removeNode(Node node) {
