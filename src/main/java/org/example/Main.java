@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.Exceptions.EdgeNotFoundException;
+
 import java.util.HashMap;
 
 public class Main {
@@ -23,8 +25,6 @@ public class Main {
         g.addEdge(1, "4", "1");
         g.addEdge(1, "1", "6");
 
-        g.contract("4", "5");
-        g.printGraph(); //TODO test contract method more
 
     }
 

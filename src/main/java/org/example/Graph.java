@@ -1,5 +1,8 @@
 package org.example;
 
+import org.example.Exceptions.EdgeNotFoundException;
+import org.example.Exceptions.NodeNotFoundException;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.*;
@@ -103,17 +106,17 @@ public class Graph {
 
     public void removeEdge(String srcName, String destName) {
         Edge e = this.getEdge(srcName, destName);
-        if(e == null){
-            //TODO
+        if (e == null) {
+            throw new EdgeNotFoundException();
         }
         this.removeEdge(e);
     }
 
     public void removeEdge(Node src, Node dest) {
         Edge e = this.getEdge(src, dest);
-       /* if(e == null){
-            e = this.getEdge(dest, src); //TODO throw exception
-        }*/
+        if (e == null) {
+            throw new EdgeNotFoundException();
+        }
         this.removeEdge(e);
     }
 
@@ -126,10 +129,10 @@ public class Graph {
     public void removeNode(String name) {   //remove node from graph and remove all edges
         Node removed = this.nodes.remove(name);
         if (removed == null) {
-            return;
+            throw new NodeNotFoundException();
         } //knoten ist weg, lösche nun ausgehende und eingehende kanten
         for (int i = 0; i < removed.getOut().size(); i++) {
-            this.removeEdge(removed.getOut().get(i));
+            this.removeEdge(removed.getOut().get(i));   //TODO after contracting, the number of edges isn't correct anymore
         }
         for (int i = 0; i < removed.getIn().size(); i++) {
             this.removeEdge(removed.getIn().get(i));
@@ -169,9 +172,8 @@ public class Graph {
     }
 
     public void contract(Node u, Node v) {
-        if(!(this.checkEdge(u, v) || this.checkEdge(v, u))){
-            System.out.println("Kante nicht gefunden");
-            return;
+        if (!this.checkEdge(u, v)) {
+            throw new EdgeNotFoundException();
         }
         ArrayList<Node> neighborsV = v.getNeighbors(); //liste aller nachbarn von v
         this.removeEdge(u, v);
@@ -237,10 +239,10 @@ public class Graph {
         }
     }
 
-    void printGraph(){
+    void printGraph() {
         System.out.println("Number of Edges: " + this.numEdges);
-        for(Node u : this.nodes.values()){
-            for(Edge e : u.getOut()){
+        for (Node u : this.nodes.values()) {
+            for (Edge e : u.getOut()) {
                 System.out.println(e.toString());
             }
         }
