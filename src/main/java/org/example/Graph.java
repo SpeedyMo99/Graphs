@@ -254,11 +254,26 @@ public class Graph {
 
         while (removedNodesStack.size() > 0) {
             ArrayList<Node> removedNodesList = removedNodesStack.pop();     //getting nodes, that got removed
-            Node fusedNode = this.getNode(fusedNodesStack.pop());
+            ArrayList<Edge> removedEdgesList = removedEdgesStack.pop();
+            ArrayList<Edge> addedEdgesList = addedEdgeStack.pop();
+            String fusedNodeName = fusedNodesStack.pop();
             ArrayList<Integer> neighborColors = new ArrayList<>();
+
+            for (Node nodeToAdd : removedNodesList) {
+                this.addNode(nodeToAdd.name, nodeToAdd);
+            }
+            for (Edge edgeToAdd : removedEdgesList) {
+                this.addEdge(edgeToAdd);
+            }
+            for (Edge edgeToRem : addedEdgesList) {
+                if (!(edgeToRem.getSrc().name.equalsIgnoreCase(edgeToRem.getDest().name))) {
+                    Edge rem = this.getEdge(edgeToRem.getSrc(), edgeToRem.getDest());
+                    this.removeEdge(rem);
+                }
+            }
+
             if (removedNodesList.size() == 1) {
-                Node node = removedNodesList.get(0);    //if only one node, then it was case 1 (deg <= 4) and thus we can add & color the node directly
-                this.addNode(node.name, node);
+                Node node = this.getNode(removedNodesList.get(0).name); //if only one node, then it was case 1 (deg <= 4) and thus we can add & color the node directly
                 for (Node neighbor : node.getNeighbors()) {
                     neighborColors.add(neighbor.getColor());
                 }
@@ -267,25 +282,22 @@ public class Graph {
                     c++;
                 }
                 node.setColor(c);
-            } else if (removedNodesList.size() == 2) {  //if 2 nodes, then it was case 2 (deg = 5) and thus we can add the nodes and color them according to the proof
+            } else if (removedNodesList.size() == 2) {
+                Node u = this.getNode(fusedNodeName);
                 for (Node node : removedNodesList) {
-                    this.addNode(node.name, node);
-                    node.setColor(fusedNode.color);
+                    node.setColor(u.getColor());
                 }
-            }
-
-            for (Edge edge : removedEdgesStack.pop()) {     //TODO color the added nodes
-                this.addEdge(edge);
-            }
-            for (Edge edge : addedEdgeStack.pop()) {
-                if (!(edge.getSrc().name.equalsIgnoreCase(edge.getDest().name))) {
-                    Edge rem = this.getEdge(edge.getSrc(), edge.getDest());
-                    this.removeEdge(rem);
+                for (Node neighbor : u.getNeighbors()) {
+                    neighborColors.add(neighbor.getColor());
                 }
+                int c = 1;
+                while (neighborColors.contains((int) c)) {
+                    c++;
+                }
+                u.setColor(c);
             }
 
         }
-
     }
 
     public void contract(Edge edge) {
