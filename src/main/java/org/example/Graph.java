@@ -181,6 +181,7 @@ public class Graph {
         Stack<ArrayList<Node>> removedNodesStack = new Stack<>();
         Stack<ArrayList<Edge>> removedEdgesStack = new Stack<>();
         Stack<ArrayList<Edge>> addedEdgeStack = new Stack<>();
+        Stack<String> fusedNodesStack = new Stack<>();
 
         for (Node u : this.getAllNodes()) {     //iteriere durch alle knoten
             if (!this.getAllNodes().contains(u)) {
@@ -204,6 +205,7 @@ public class Graph {
                 removedNodesStack.push(removedNodeList);        //speichere die 3 listen im jeweiligen stack
                 removedEdgesStack.push(removedEdgesList);
                 addedEdgeStack.push(addedEdgesList);    //leere liste
+                fusedNodesStack.push("");   //leerer String
                 this.removeNode(u);             //entferne u (zusammen mit den kanten)
             } else if (u.deg() == 5) {  //falls 2: deg = 5
 
@@ -239,6 +241,7 @@ public class Graph {
                         }
                     }
                 }
+                fusedNodesStack.push(u.name);
                 removedNodesStack.push(removedNodeList);
                 removedEdgesStack.push(removedEdgesList);   //pushing the lists to appropriate stack
                 addedEdgeStack.push(addedEdgesList);
@@ -250,9 +253,27 @@ public class Graph {
         this.greedyColor();
 
         while (removedNodesStack.size() > 0) {
-            for (Node node : removedNodesStack.pop()) {
+            ArrayList<Node> removedNodesList = removedNodesStack.pop();     //getting nodes, that got removed
+            Node fusedNode = this.getNode(fusedNodesStack.pop());
+            ArrayList<Integer> neighborColors = new ArrayList<>();
+            if (removedNodesList.size() == 1) {
+                Node node = removedNodesList.get(0);    //if only one node, then it was case 1 (deg <= 4) and thus we can add & color the node directly
                 this.addNode(node.name, node);
+                for (Node neighbor : node.getNeighbors()) {
+                    neighborColors.add(neighbor.getColor());
+                }
+                int c = 1;
+                while (neighborColors.contains((int) c)) {
+                    c++;
+                }
+                node.setColor(c);
+            } else if (removedNodesList.size() == 2) {  //if 2 nodes, then it was case 2 (deg = 5) and thus we can add the nodes and color them according to the proof
+                for (Node node : removedNodesList) {
+                    this.addNode(node.name, node);
+                    node.setColor(fusedNode.color);
+                }
             }
+
             for (Edge edge : removedEdgesStack.pop()) {     //TODO color the added nodes
                 this.addEdge(edge);
             }
@@ -264,7 +285,6 @@ public class Graph {
             }
 
         }
-        this.printGraph();
 
     }
 
@@ -353,9 +373,9 @@ public class Graph {
         }
     }
 
-    void printEdges(){
-        for(Node u : this.getAllNodes()){
-            for(Edge e : u.getOut()){
+    void printEdges() {
+        for (Node u : this.getAllNodes()) {
+            for (Edge e : u.getOut()) {
                 System.out.print(e);
             }
             System.out.println("");
