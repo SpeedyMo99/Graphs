@@ -199,16 +199,17 @@ public class Graph {
             } else if (u.deg() == 5) {  //falls 2: deg = 5
 
                 ArrayList<Node> neighborsU = u.getNeighbors();      //finde 2 knoten in der nachbarschaft, zwischen denen keine kante existiert
+                outerloop:
                 for (int i = 0; i < neighborsU.size(); i++) {
                     for (int j = 0; j < neighborsU.size(); j++) {
                         if (i != j && !this.checkEdge(neighborsU.get(i), neighborsU.get(j))) {
                             Node v = neighborsU.get(i);
                             Node w = neighborsU.get(j);
-                            break;      //TODO
+                            break outerloop;
                         }
                     }
                 }
-
+                //blabla
             }
 
         }
