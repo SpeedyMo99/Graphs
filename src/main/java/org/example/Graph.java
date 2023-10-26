@@ -43,6 +43,9 @@ public class Graph {
         if (e.getSrc().name.equalsIgnoreCase(e.getDest().name)) {
             return false;   //schlingen verboten
         }
+        if (this.checkEdge(e.getSrc(), e.getDest())) {
+            return false;
+        }
         e.getSrc().addOut(e);
         e.getDest().addIn(e);
         numEdges++;
@@ -180,6 +183,12 @@ public class Graph {
         Stack<ArrayList<Edge>> addedEdgeStack = new Stack<>();
 
         for (Node u : this.getAllNodes()) {     //iteriere durch alle knoten
+            if (!this.getAllNodes().contains(u)) {
+                continue;
+            }
+            if (this.getAllNodes().size() <= 5) {
+                break;
+            }
             ArrayList<Node> removedNodeList = new ArrayList<>();
             ArrayList<Edge> removedEdgesList = new ArrayList<>();
             ArrayList<Edge> addedEdgesList = new ArrayList<>();
@@ -198,21 +207,64 @@ public class Graph {
                 this.removeNode(u);             //entferne u (zusammen mit den kanten)
             } else if (u.deg() == 5) {  //falls 2: deg = 5
 
-                ArrayList<Node> neighborsU = u.getNeighbors();      //finde 2 knoten in der nachbarschaft, zwischen denen keine kante existiert
+                ArrayList<Node> neighborsU = u.getNeighbors();
+                Node v = null;
+                Node w = null;
                 outerloop:
-                for (int i = 0; i < neighborsU.size(); i++) {
+                for (int i = 0; i < neighborsU.size(); i++) {       //finde 2 knoten v,w in der nachbarschaft, zwischen denen keine kante existiert
                     for (int j = 0; j < neighborsU.size(); j++) {
                         if (i != j && !this.checkEdge(neighborsU.get(i), neighborsU.get(j))) {
-                            Node v = neighborsU.get(i);
-                            Node w = neighborsU.get(j);
+                            v = neighborsU.get(i);
+                            w = neighborsU.get(j);
                             break outerloop;
                         }
                     }
                 }
-                //blabla
+                if (v == null || w == null) {
+                    throw new IllegalArgumentException("mhhh");
+                }
+                removedNodeList.add(v);     //speichere v,w in liste (diese knoten werden entfernt)
+                removedNodeList.add(w);
+                for (Node node : removedNodeList) {   //for v, w
+                    for (Edge e : node.getIn()) {
+                        removedEdgesList.add(e);       //speichere jede kante von v,w in liste
+                    }
+                    for (Edge e : node.getOut()) {
+                        removedEdgesList.add(e);
+                    }
+                    ArrayList<Node> neighborsVW = node.getNeighbors();
+                    for (Node neighborVW : neighborsVW) {
+                        if (!(this.checkEdge(u, neighborVW) || this.checkEdge(neighborVW, u))) {    //speichere kanten, die beim kontrahieren hinzugefügt werden in liste
+                            addedEdgesList.add(new Edge(1, u, neighborVW));
+                        }
+                    }
+                }
+                removedNodesStack.push(removedNodeList);
+                removedEdgesStack.push(removedEdgesList);   //pushing the lists to appropriate stack
+                addedEdgeStack.push(addedEdgesList);
+                this.contract(u, v);
+                this.contract(u, w);
+            }
+        }
+        //only at most 5 nodes left, which can be colored with <=5 colors
+        this.greedyColor();
+
+        while (removedNodesStack.size() > 0) {
+            for (Node node : removedNodesStack.pop()) {
+                this.addNode(node.name, node);
+            }
+            for (Edge edge : removedEdgesStack.pop()) {     //TODO color the added nodes
+                this.addEdge(edge);
+            }
+            for (Edge edge : addedEdgeStack.pop()) {
+                if (!(edge.getSrc().name.equalsIgnoreCase(edge.getDest().name))) {
+                    Edge rem = this.getEdge(edge.getSrc(), edge.getDest());
+                    this.removeEdge(rem);
+                }
             }
 
         }
+        this.printGraph();
 
     }
 
@@ -296,8 +348,17 @@ public class Graph {
         System.out.println("Number of Edges: " + this.numEdges);
         for (Node u : this.nodes.values()) {
             for (Edge e : u.getOut()) {
-                System.out.println(e.toString());
+                System.out.println(e.detailed());
             }
+        }
+    }
+
+    void printEdges(){
+        for(Node u : this.getAllNodes()){
+            for(Edge e : u.getOut()){
+                System.out.print(e);
+            }
+            System.out.println("");
         }
     }
 

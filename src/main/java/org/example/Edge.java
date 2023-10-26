@@ -39,8 +39,16 @@ public class Edge {
     }
 
     public String toString(){
+        //String s = "Edge: Gewicht: " + weight + " From: " + this.fromNode.toString() + " To: " + this.toNode.toString();
+        String s = this.fromNode.name + "--" + this.toNode.name + "|| ";    //TODO
+        return s;
+    }
+
+    public String detailed(){
         String s = "Edge: Gewicht: " + weight + " From: " + this.fromNode.toString() + " To: " + this.toNode.toString();
         return s;
     }
+
+
 
 }
