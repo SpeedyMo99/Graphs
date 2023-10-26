@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.Exceptions.EdgeNotFoundException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Main {
@@ -25,6 +26,9 @@ public class Main {
         g.addEdge(1, "4", "1");
         g.addEdge(1, "1", "6");
 
+
+          g.fiveColorPlanar();
+        //  g.printGraph();
 
     }
 

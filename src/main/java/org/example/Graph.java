@@ -167,6 +167,54 @@ public class Graph {
         }
     }
 
+    public void fiveColorPlanar() {  //mostly assumes that graph is planar -- checking if graph is planar should be done somewhere else
+        ArrayList<Node> allNodes = this.getAllNodes();
+
+        if (allNodes.size() <= 5) {   //if graph has only 5 nodes, color them and return
+            this.greedyColor();     //since we only have 5 nodes (at most), greedy color will use at most 5 colors
+            return;
+        }
+
+        Stack<ArrayList<Node>> removedNodesStack = new Stack<>();
+        Stack<ArrayList<Edge>> removedEdgesStack = new Stack<>();
+        Stack<ArrayList<Edge>> addedEdgeStack = new Stack<>();
+
+        for (Node u : this.getAllNodes()) {     //iteriere durch alle knoten
+            ArrayList<Node> removedNodeList = new ArrayList<>();
+            ArrayList<Edge> removedEdgesList = new ArrayList<>();
+            ArrayList<Edge> addedEdgesList = new ArrayList<>();
+
+            if (u.deg() <= 4) {                 //fall 1: deg <= 4
+                removedNodeList.add(u);         //speichere u in liste
+                for (Edge e : u.getIn()) {
+                    removedEdgesList.add(e);       //speichere jede kante von u in liste
+                }
+                for (Edge e : u.getOut()) {
+                    removedEdgesList.add(e);        //speichere jede kante von u in liste
+                }
+                removedNodesStack.push(removedNodeList);        //speichere die 3 listen im jeweiligen stack
+                removedEdgesStack.push(removedEdgesList);
+                addedEdgeStack.push(addedEdgesList);    //leere liste
+                this.removeNode(u);             //entferne u (zusammen mit den kanten)
+            } else if (u.deg() == 5) {  //falls 2: deg = 5
+
+                ArrayList<Node> neighborsU = u.getNeighbors();      //finde 2 knoten in der nachbarschaft, zwischen denen keine kante existiert
+                for (int i = 0; i < neighborsU.size(); i++) {
+                    for (int j = 0; j < neighborsU.size(); j++) {
+                        if (i != j && !this.checkEdge(neighborsU.get(i), neighborsU.get(j))) {
+                            Node v = neighborsU.get(i);
+                            Node w = neighborsU.get(j);
+                            break;      //TODO
+                        }
+                    }
+                }
+
+            }
+
+        }
+
+    }
+
     public void contract(Edge edge) {
         this.contract(edge.getSrc(), edge.getDest());
     }
@@ -185,8 +233,12 @@ public class Graph {
         }
     }
 
-    public void contract(String nodeName1, String nodeName2) {
-        this.contract(this.nodes.get(nodeName1), this.nodes.get(nodeName2));
+    public void contract(String nameU, String nameV) {
+        this.contract(this.nodes.get(nameU), this.nodes.get(nameV));
+    }
+
+    public void subdivide(Edge e) {
+        //TODO: implement this method together with subdivide(Node u, Node v) and subdivide(String nameU, String nameV)
     }
 
     public void removeNode(Node node) {

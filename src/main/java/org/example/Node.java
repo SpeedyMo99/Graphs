@@ -49,10 +49,16 @@ public class Node {
     public ArrayList<Node> getNeighbors() {
         ArrayList<Node> neighbors = new ArrayList<>();
         for (Edge e : this.out) {
-            neighbors.add(e.getDest());
+            Node n = e.getDest();
+            if (!neighbors.contains(n)) {
+                neighbors.add(n);
+            }
         }
         for (Edge e : this.in) {
-            neighbors.add(e.getSrc());
+            Node n = e.getSrc();
+            if (!neighbors.contains(n)) {
+                neighbors.add(n);
+            }
         }
         return neighbors;
     }
@@ -61,7 +67,7 @@ public class Node {
         return this.color;
     }
 
-    public void setColor(int color){
+    public void setColor(int color) {
         this.color = color;
     }
 
