@@ -337,9 +337,9 @@ public class Graph {
                             }
                         }
                     }   //10
-                    x.setColor(y.getColor());   //11
                     currentNode.setColor(x.getColor()); //12
-                }else{  //13
+                    x.setColor(y.getColor());   //11
+                } else {  //13
                     Integer newColor = 1;   //14
                     while (neighborColors.contains((int) newColor)) {
                         newColor++;
@@ -347,9 +347,7 @@ public class Graph {
                     currentNode.setColor(newColor); //14
                 }
             }
-           // this.printGraph();
         }
-
     }
 
     public void contract(Edge edge) {
