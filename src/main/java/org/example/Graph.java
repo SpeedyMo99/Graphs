@@ -312,8 +312,8 @@ public class Graph {
                 for (Node neighbor : neighbors) {
                     neighborColors.add(neighbor.getColor());    //5
                 }
-                int newColor = 1;   //6
-                while (!neighborColors.contains((int) newColor)) {
+                Integer newColor = 1;   //6
+                while (neighborColors.contains((int) newColor)) {
                     newColor++;
                 }
                 currentNode.setColor(newColor); //6
@@ -340,13 +340,14 @@ public class Graph {
                     x.setColor(y.getColor());   //11
                     currentNode.setColor(x.getColor()); //12
                 }else{  //13
-                    int newColor = 1;   //14
-                    while (!neighborColors.contains((int) newColor)) {
+                    Integer newColor = 1;   //14
+                    while (neighborColors.contains((int) newColor)) {
                         newColor++;
                     }
                     currentNode.setColor(newColor); //14
                 }
             }
+           // this.printGraph();
         }
 
     }

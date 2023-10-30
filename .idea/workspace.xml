@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9cd1842a-dfcc-4f0e-8ac1-b3b3457cd20b" name="Changes" comment="implemented fiveColorPlanar">
+    <list default="true" id="9cd1842a-dfcc-4f0e-8ac1-b3b3457cd20b" name="Changes" comment="implemented another fiveColorPlanar2 algorithm">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Graph.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
@@ -158,7 +158,14 @@
       <option name="project" value="LOCAL" />
       <updated>1698345186852</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="implemented another fiveColorPlanar2 algorithm">
+      <created>1698693038525</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1698693038525</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,6 +176,7 @@
     <MESSAGE value="commit" />
     <MESSAGE value="added exception" />
     <MESSAGE value="implemented fiveColorPlanar" />
-    <option name="LAST_COMMIT_MESSAGE" value="implemented fiveColorPlanar" />
+    <MESSAGE value="implemented another fiveColorPlanar2 algorithm" />
+    <option name="LAST_COMMIT_MESSAGE" value="implemented another fiveColorPlanar2 algorithm" />
   </component>
 </project>
