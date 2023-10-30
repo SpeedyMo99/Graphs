@@ -37,8 +37,10 @@ public class Main {
         g.addEdge(1, "4", "6");
 
 
-        g.fiveColorPlanar();
-        //g.printGraph();
+        //g.fiveColorPlanar();
+        g.fiveColorPlanar2();
+        //g.greedyColor();
+        g.printGraph();
 
     }
 

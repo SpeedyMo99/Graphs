@@ -5,6 +5,7 @@ import org.example.Exceptions.NodeNotFoundException;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Graph {
@@ -298,6 +299,56 @@ public class Graph {
             }
 
         }
+    }
+
+    public void fiveColorPlanar2() {
+        ArrayList<Node> nodes = this.getAllNodes();
+        nodes.get(0).setColor(1);       //2
+        for (int i = 2; i < nodes.size(); i++) {    //3
+            Node currentNode = nodes.get(i);
+            ArrayList<Node> neighbors = currentNode.getNeighbors();
+            if (neighbors.size() <= 4) {  //4
+                ArrayList<Integer> neighborColors = new ArrayList<>();  //5
+                for (Node neighbor : neighbors) {
+                    neighborColors.add(neighbor.getColor());    //5
+                }
+                int newColor = 1;   //6
+                while (!neighborColors.contains((int) newColor)) {
+                    newColor++;
+                }
+                currentNode.setColor(newColor); //6
+            } else {
+                ArrayList<Integer> neighborColors = new ArrayList<>();  //8
+                for (Node neighbor : neighbors) {
+                    int c = neighbor.getColor();
+                    if (!neighborColors.contains((int) c)) {  //Menge beinhaltet nur verschiedene farben (damit in zeile 9 die Auswertung der Länge der Liste Sinn macht)
+                        neighborColors.add(c);
+                    }
+                }   //8
+                if (neighborColors.size() == neighbors.size()) {  //9
+                    Node x = null, y = null;   //10
+                    outerloop:
+                    for (int i1 = 0; i < neighbors.size(); i1++) {       //finde 2 knoten v,w in der nachbarschaft, zwischen denen keine kante existiert
+                        for (int j = 0; j < neighbors.size(); j++) {
+                            if (i1 != j && !this.checkEdge(neighbors.get(i1), neighbors.get(j))) {
+                                x = neighbors.get(i1);
+                                y = neighbors.get(j);
+                                break outerloop;
+                            }
+                        }
+                    }   //10
+                    x.setColor(y.getColor());   //11
+                    currentNode.setColor(x.getColor()); //12
+                }else{  //13
+                    int newColor = 1;   //14
+                    while (!neighborColors.contains((int) newColor)) {
+                        newColor++;
+                    }
+                    currentNode.setColor(newColor); //14
+                }
+            }
+        }
+
     }
 
     public void contract(Edge edge) {
