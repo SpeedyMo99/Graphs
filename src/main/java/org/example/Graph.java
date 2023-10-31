@@ -5,7 +5,6 @@ import org.example.Exceptions.NodeNotFoundException;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Graph {
@@ -20,12 +19,11 @@ public class Graph {
         this.numEdges = numEdges;
     }
 
-    public boolean addNode(String name, Node node) {
+    public void addNode(String name, Node node) {
         if (nodes.get(name) != null) {
-            return false;
+            return;
         }
         nodes.put(name, node);
-        return true;
     }
 
     public Node getNode(String name) {
@@ -40,33 +38,32 @@ public class Graph {
         return allNodes;
     }
 
-    public boolean addEdge(Edge e) {
+    public void addEdge(Edge e) {
         if (e.getSrc().name.equalsIgnoreCase(e.getDest().name)) {
-            return false;   //schlingen verboten
+            return;   //schlingen verboten
         }
         if (this.checkEdge(e.getSrc(), e.getDest())) {
-            return false;
+            return;
         }
         e.getSrc().addOut(e);
         e.getDest().addIn(e);
         numEdges++;
-        return true;
     }
 
-    public boolean addEdge(int weight, Node src, Node dest) {
+    public void addEdge(int weight, Node src, Node dest) {
         if (src.name.equalsIgnoreCase(dest.name)) {
-            return false;
+            return;
         }
         Edge e = new Edge(weight, src, dest);
-        return this.addEdge(e);
+        this.addEdge(e);
     }
 
-    public boolean addEdge(int weight, String srcName, String destName) {
+    public void addEdge(int weight, String srcName, String destName) {
         if (srcName.equalsIgnoreCase(destName)) {
-            return false;
+            return;
         }
         Edge e = new Edge(weight, this.getNode(srcName), this.getNode(destName));
-        return this.addEdge(e);
+        this.addEdge(e);
     }
 
     public int minDeg() {
