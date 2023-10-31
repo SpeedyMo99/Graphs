@@ -31,11 +31,7 @@ public class Graph {
     }
 
     public ArrayList<Node> getAllNodes() {
-        ArrayList<Node> allNodes = new ArrayList<>();
-        for (Node node : this.nodes.values()) {
-            allNodes.add(node);
-        }
-        return allNodes;
+        return new ArrayList<>(this.nodes.values());
     }
 
     public void addEdge(Edge e) {
@@ -66,6 +62,7 @@ public class Graph {
         this.addEdge(e);
     }
 
+    @SuppressWarnings("unused")
     public int minDeg() {
         int min = Integer.MAX_VALUE;
         for (Node node : this.nodes.values()) {
@@ -76,6 +73,7 @@ public class Graph {
         return min;
     }
 
+    @SuppressWarnings("unused")
     public int maxDeg() {
         int max = -1;
         for (Node node : this.nodes.values()) {
@@ -101,10 +99,12 @@ public class Graph {
         return null;
     }
 
+    @SuppressWarnings("unused")
     public int getNumEdges() {
         return numEdges;
     }
 
+    @SuppressWarnings("unused")
     public void removeEdge(String srcName, String destName) {
         Edge e = this.getEdge(srcName, destName);
         if (e == null) {
@@ -140,12 +140,13 @@ public class Graph {
         }
     }
 
+    @SuppressWarnings("unused")
     public boolean checkEdge(String srcName, String destName) {
-        return (this.getEdge(srcName, destName) != null) ? true : false;
+        return this.getEdge(srcName, destName) != null;
     }
 
     public boolean checkEdge(Node src, Node dest) {
-        return (this.getEdge(src, dest) != null) ? true : false;
+        return this.getEdge(src, dest) != null;
     }
 
     public void greedyColor() {
@@ -161,13 +162,14 @@ public class Graph {
                 neighborColors.add(neighbor.getColor());
             }
             int c = 1;
-            while (neighborColors.contains((int) c)) {
+            while (neighborColors.contains(c)) {
                 c++;
             }
             currentNode.setColor(c); //c(node_i) = kleinste farbe, die nicht in Fi ist
         }
     }
 
+    @SuppressWarnings("unused")
     public void fiveColorPlanar() {  //mostly assumes that graph is planar -- checking if graph is planar should be done somewhere else
         ArrayList<Node> allNodes = this.getAllNodes();
 
