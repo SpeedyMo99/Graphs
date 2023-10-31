@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class ExampleGraphs {
 
+    @SuppressWarnings("unused")
     public static Graph examplePlanar1() {
         HashMap<String, Node> x = new HashMap<>();
         Graph g = new Graph(x, 0);
@@ -34,6 +35,7 @@ public class ExampleGraphs {
         return g;
     }
 
+    @SuppressWarnings("unused")
     public static Graph examplePlanar2() { //very simple graph
         HashMap<String, Node> x = new HashMap<>();
         Graph g = new Graph(x, 0);

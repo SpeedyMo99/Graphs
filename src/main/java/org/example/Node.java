@@ -26,8 +26,8 @@ public class Node {
     public Node(String name) {
         this.name = name;
         this.color = 0; //white
-        out = new ArrayList<Edge>(64);
-        in = new ArrayList<Edge>(64);
+        out = new ArrayList<>(64);
+        in = new ArrayList<>(64);
     }
 
     void addOut(Edge e) {

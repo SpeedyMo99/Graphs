@@ -14,18 +14,22 @@ public class Edge {
         this.toNode = toNode;
     }
 
+    @SuppressWarnings("unused")
     public int getWeight() {
         return weight;
     }
 
+    @SuppressWarnings("unused")
     public void setWeight(int weight) {
         this.weight = weight;
     }
 
+    @SuppressWarnings("unused")
     public void setSrc(Node fromNode) {
         this.fromNode = fromNode;
     }
 
+    @SuppressWarnings("unused")
     public void setDest(Node toNode) {
         this.toNode = toNode;
     }
@@ -40,13 +44,11 @@ public class Edge {
 
     public String toString(){
         //String s = "Edge: Gewicht: " + weight + " From: " + this.fromNode.toString() + " To: " + this.toNode.toString();
-        String s = this.fromNode.name + "--" + this.toNode.name + "|| ";    //TODO
-        return s;
+        return this.fromNode.name + "--" + this.toNode.name + "|| ";
     }
 
     public String detailed(){
-        String s = "Edge: Gewicht: " + weight + " From: " + this.fromNode.toString() + " To: " + this.toNode.toString();
-        return s;
+        return "Edge: Gewicht: " + weight + " From: " + this.fromNode.toString() + " To: " + this.toNode.toString();
     }
 
 

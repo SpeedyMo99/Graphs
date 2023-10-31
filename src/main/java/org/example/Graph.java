@@ -304,8 +304,9 @@ public class Graph {
         for (int i = 2; i < nodes.size(); i++) {    //3
             Node currentNode = nodes.get(i);
             ArrayList<Node> neighbors = currentNode.getNeighbors();
+            ArrayList<Integer> neighborColors = new ArrayList<>();  //5
+//8
             if (neighbors.size() <= 4) {  //4
-                ArrayList<Integer> neighborColors = new ArrayList<>();  //5
                 for (Node neighbor : neighbors) {
                     neighborColors.add(neighbor.getColor());    //5
                 }
@@ -315,7 +316,6 @@ public class Graph {
                 }
                 currentNode.setColor(newColor); //6
             } else {
-                ArrayList<Integer> neighborColors = new ArrayList<>();  //8
                 for (Node neighbor : neighbors) {
                     int c = neighbor.getColor();
                     if (!neighborColors.contains(c)) {  //Menge beinhaltet nur verschiedene farben (damit in zeile 9 die Auswertung der Länge der Liste Sinn macht)
