@@ -350,6 +350,21 @@ public class Graph {
         }
     }
 
+    public boolean bridgeOver(Node u) {
+        ArrayList<Node> neighborsU = u.getNeighbors();
+        if (neighborsU.size() != 2) {
+            return false;
+        }//now that we know that u has exactly 2 neighbors, we can remove u
+        this.removeNode(u);
+        //now that the connections are removed, we can connect the 2 neighbors
+        this.addEdge(1, neighborsU.get(0), neighborsU.get(1));
+        return true;
+    }
+
+    public boolean bridgeOver(String nameU) {
+        return this.bridgeOver(this.getNode(nameU));
+    }
+
     public void contract(Edge edge) {
         this.contract(edge.getSrc(), edge.getDest());
     }
@@ -373,7 +388,27 @@ public class Graph {
     }
 
     public void subdivide(Edge e) {
-        //TODO: implement this method together with subdivide(Node u, Node v) and subdivide(String nameU, String nameV)
+        Node u = e.getSrc();
+        Node v = e.getDest();
+        this.removeEdge(e);
+        String i = String.valueOf(this.getAllNodes().size() + 1);
+        Node newNode = new Node(i);
+        this.addNode(i, newNode);
+        this.addEdge(1, u, newNode);
+        this.addEdge(1, v, newNode);
+
+    }
+
+    public void subdivide(Node u, Node v) {
+        if (this.checkEdge(u, v)) {
+            this.subdivide(this.getEdge(u, v));
+        } else if (this.checkEdge(v, u)) {
+            this.subdivide(this.getEdge(v, u));
+        }
+    }
+
+    public void subdivide(String nameU, String nameV) {
+        this.subdivide(this.getNode(nameU), this.getNode(nameV));
     }
 
     public void removeNode(Node node) {

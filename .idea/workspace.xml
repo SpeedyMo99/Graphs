@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9cd1842a-dfcc-4f0e-8ac1-b3b3457cd20b" name="Changes" comment="implemented another fiveColorPlanar2 algorithm">
+    <list default="true" id="9cd1842a-dfcc-4f0e-8ac1-b3b3457cd20b" name="Changes" comment="contract">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_10_2023_20_02__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_10_2023_20_02__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Graph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,9 +54,6 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Moritz-normal\OneDrive\1A_Programmieren\Java-Intellij\Projekte\java\anderes\Graphs" />
     </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="org.example.Exceptions" />
-    </key>
   </component>
   <component name="RunManager">
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
@@ -79,6 +78,9 @@
       <workItem from="1698162896484" duration="854000" />
       <workItem from="1698166277375" duration="96000" />
       <workItem from="1698166423389" duration="3460000" />
+      <workItem from="1698703599173" duration="38000" />
+      <workItem from="1698757207903" duration="3576000" />
+      <workItem from="1698768867713" duration="1511000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1698074204385</created>
@@ -108,70 +110,7 @@
       <option name="project" value="LOCAL" />
       <updated>1698162999462</updated>
     </task>
-    <task id="LOCAL-00005" summary="commit">
-      <created>1698173099864</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1698173099864</updated>
-    </task>
-    <task id="LOCAL-00006" summary="added exception">
-      <created>1698272732752</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1698272732752</updated>
-    </task>
-    <task id="LOCAL-00007" summary="added exception">
-      <created>1698318323639</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1698318323639</updated>
-    </task>
-    <task id="LOCAL-00008" summary="added exception">
-      <created>1698319955942</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1698319955942</updated>
-    </task>
-    <task id="LOCAL-00009" summary="implemented fiveColorPlanar">
-      <created>1698338811232</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1698338811232</updated>
-    </task>
-    <task id="LOCAL-00010" summary="implemented fiveColorPlanar">
-      <created>1698344039688</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1698344039688</updated>
-    </task>
-    <task id="LOCAL-00011" summary="implemented fiveColorPlanar">
-      <created>1698345186852</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1698345186852</updated>
-    </task>
-    <task id="LOCAL-00012" summary="implemented another fiveColorPlanar2 algorithm">
-      <created>1698693038525</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1698693038525</updated>
-    </task>
-    <task id="LOCAL-00013" summary="implemented another fiveColorPlanar2 algorithm">
-      <created>1698694342125</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1698694342125</updated>
-    </task>
-    <option name="localTasksCounter" value="14" />
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,9 +119,6 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="implemented greedyColor" />
     <MESSAGE value="commit" />
-    <MESSAGE value="added exception" />
-    <MESSAGE value="implemented fiveColorPlanar" />
-    <MESSAGE value="implemented another fiveColorPlanar2 algorithm" />
-    <option name="LAST_COMMIT_MESSAGE" value="implemented another fiveColorPlanar2 algorithm" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit" />
   </component>
 </project>
