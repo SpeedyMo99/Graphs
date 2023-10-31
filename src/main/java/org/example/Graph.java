@@ -196,12 +196,11 @@ public class Graph {
 
             if (u.deg() <= 4) {                 //fall 1: deg <= 4
                 removedNodeList.add(u);         //speichere u in liste
-                for (Edge e : u.getIn()) {
-                    removedEdgesList.add(e);       //speichere jede kante von u in liste
-                }
-                for (Edge e : u.getOut()) {
-                    removedEdgesList.add(e);        //speichere jede kante von u in liste
-                }
+                //speichere jede kante von u in liste
+                removedEdgesList.addAll(u.getIn());
+                //speichere jede kante von u in liste
+                removedEdgesList.addAll(u.getOut());
+
                 removedNodesStack.push(removedNodeList);        //speichere die 3 listen im jeweiligen stack
                 removedEdgesStack.push(removedEdgesList);
                 addedEdgeStack.push(addedEdgesList);    //leere liste
@@ -228,12 +227,10 @@ public class Graph {
                 removedNodeList.add(v);     //speichere v,w in liste (diese knoten werden entfernt)
                 removedNodeList.add(w);
                 for (Node node : removedNodeList) {   //for v, w
-                    for (Edge e : node.getIn()) {
-                        removedEdgesList.add(e);       //speichere jede kante von v,w in liste
-                    }
-                    for (Edge e : node.getOut()) {
-                        removedEdgesList.add(e);
-                    }
+                    //speichere jede kante von v,w in liste
+                    removedEdgesList.addAll(node.getIn());
+                    removedEdgesList.addAll(node.getOut());
+
                     ArrayList<Node> neighborsVW = node.getNeighbors();
                     for (Node neighborVW : neighborsVW) {
                         if (!(this.checkEdge(u, neighborVW) || this.checkEdge(neighborVW, u))) {    //speichere kanten, die beim kontrahieren hinzugefügt werden in liste
@@ -278,7 +275,7 @@ public class Graph {
                     neighborColors.add(neighbor.getColor());
                 }
                 int c = 1;
-                while (neighborColors.contains((int) c)) {
+                while (neighborColors.contains(c)) {
                     c++;
                 }
                 node.setColor(c);
@@ -291,7 +288,7 @@ public class Graph {
                     neighborColors.add(neighbor.getColor());
                 }
                 int c = 1;
-                while (neighborColors.contains((int) c)) {
+                while (neighborColors.contains(c)) {
                     c++;
                 }
                 u.setColor(c);
@@ -300,6 +297,7 @@ public class Graph {
         }
     }
 
+    @SuppressWarnings("unused")
     public void fiveColorPlanar2() {
         ArrayList<Node> nodes = this.getAllNodes();
         nodes.get(0).setColor(1);       //2
@@ -311,8 +309,8 @@ public class Graph {
                 for (Node neighbor : neighbors) {
                     neighborColors.add(neighbor.getColor());    //5
                 }
-                Integer newColor = 1;   //6
-                while (neighborColors.contains((int) newColor)) {
+                int newColor = 1;   //6
+                while (neighborColors.contains(newColor)) {
                     newColor++;
                 }
                 currentNode.setColor(newColor); //6
@@ -320,7 +318,7 @@ public class Graph {
                 ArrayList<Integer> neighborColors = new ArrayList<>();  //8
                 for (Node neighbor : neighbors) {
                     int c = neighbor.getColor();
-                    if (!neighborColors.contains((int) c)) {  //Menge beinhaltet nur verschiedene farben (damit in zeile 9 die Auswertung der Länge der Liste Sinn macht)
+                    if (!neighborColors.contains(c)) {  //Menge beinhaltet nur verschiedene farben (damit in zeile 9 die Auswertung der Länge der Liste Sinn macht)
                         neighborColors.add(c);
                     }
                 }   //8
@@ -336,11 +334,13 @@ public class Graph {
                             }
                         }
                     }   //10
-                    currentNode.setColor(x.getColor()); //12
-                    x.setColor(y.getColor());   //11
+                    if (x != null && y != null) {
+                        currentNode.setColor(x.getColor()); //12
+                        x.setColor(y.getColor());   //11
+                    }
                 } else {  //13
-                    Integer newColor = 1;   //14
-                    while (neighborColors.contains((int) newColor)) {
+                    int newColor = 1;   //14
+                    while (neighborColors.contains(newColor)) {
                         newColor++;
                     }
                     currentNode.setColor(newColor); //14
@@ -360,10 +360,12 @@ public class Graph {
         return true;
     }
 
+    @SuppressWarnings("unused")
     public boolean bridgeOver(String nameU) {
         return this.bridgeOver(this.getNode(nameU));
     }
 
+    @SuppressWarnings("unused")
     public void contract(Edge edge) {
         this.contract(edge.getSrc(), edge.getDest());
     }
@@ -382,6 +384,7 @@ public class Graph {
         }
     }
 
+    @SuppressWarnings("unused")
     public void contract(String nameU, String nameV) {
         this.contract(this.nodes.get(nameU), this.nodes.get(nameV));
     }
@@ -406,6 +409,7 @@ public class Graph {
         }
     }
 
+    @SuppressWarnings("unused")
     public void subdivide(String nameU, String nameV) {
         this.subdivide(this.getNode(nameU), this.getNode(nameV));
     }
@@ -415,10 +419,11 @@ public class Graph {
     }
 
     // Load a graph from file
+    @SuppressWarnings("unused")
     static Graph loadFromEdgeFile(String filename) {
         int curLine = 0;
         int numEdges = 0;
-        HashMap<String, Node> nodes = new HashMap<String, Node>(1024);
+        HashMap<String, Node> nodes = new HashMap<>(1024);
         try {
             BufferedReader file = new BufferedReader(new FileReader(filename));
             String line;
@@ -442,12 +447,13 @@ public class Graph {
             file.close();
             return new Graph(nodes, numEdges);
         } catch (Exception e) {
-            System.err.println("Error in graph file (line " + curLine + "): " + e.toString());
+            System.err.println("Error in graph file (line " + curLine + "): " + e);
             e.printStackTrace();
         }
         return null;
     }
 
+    @SuppressWarnings("unused")
     void printResults() {
         for (Node u : nodes.values()) {
             System.out.print(u.name + ":");
@@ -469,12 +475,13 @@ public class Graph {
         }
     }
 
+    @SuppressWarnings("unused")
     void printEdges() {
         for (Node u : this.getAllNodes()) {
             for (Edge e : u.getOut()) {
                 System.out.print(e);
             }
-            System.out.println("");
+            System.out.println();
         }
     }
 
