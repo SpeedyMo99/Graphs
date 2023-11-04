@@ -485,4 +485,20 @@ public class Graph {
         }
     }
 
+    public List<Edge> getAllEdges() {
+        List<Edge> list = new ArrayList<>();
+        for (Node u : this.getAllNodes()) {
+            list.addAll(u.getOut());
+        }
+        return list;
+    }
+
+    public List<javafx.scene.Node> elements() {
+        List<javafx.scene.Node> elements = new ArrayList<>();
+
+        this.getAllEdges().forEach(e -> elements.add(e.element()));
+        this.getAllNodes().forEach(n -> elements.add(n.element()));
+
+        return elements;
+    }
 }

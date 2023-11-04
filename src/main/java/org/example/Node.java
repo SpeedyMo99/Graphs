@@ -1,11 +1,23 @@
 package org.example;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import lombok.Getter;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Node {
 
     // Node properties
     String name;
+
+    @Getter
+    private double x;
+    @Getter
+    private double y;
+    private static final double RADIUS = 10;
 
     //enum Color {white, gray, black}
 
@@ -28,6 +40,17 @@ public class Node {
         this.color = 0; //white
         out = new ArrayList<>(64);
         in = new ArrayList<>(64);
+
+        this.x = this.randInRange(0, 720);
+        this.y = this.randInRange(0, 400);
+    }
+
+    private double randInRange(double start, double end) {
+        Random random = new Random();
+        double range = end - start;
+        double scatter = random.nextDouble();
+        double rand = start + range * scatter;
+        return rand;
     }
 
     void addOut(Edge e) {
@@ -73,6 +96,15 @@ public class Node {
 
     public int deg() {
         return this.getNeighbors().size();
+    }
+
+    public Circle element() {
+        Circle circle = new Circle();
+        circle.setFill(Color.BLUE);
+        circle.setRadius(RADIUS);
+        circle.setTranslateX(this.x);
+        circle.setTranslateY(this.y);
+        return circle;
     }
 
     public String toString() {

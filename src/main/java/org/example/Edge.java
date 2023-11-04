@@ -1,5 +1,8 @@
 package org.example;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+
 public class Edge {
 
     // Edge properties
@@ -42,6 +45,22 @@ public class Edge {
         return toNode;
     }
 
+    public Line element() {
+        double x1 = this.fromNode.getX();
+        double y1 = this.fromNode.getY();
+        double x2 = this.toNode.getX();
+        double y2 = this.toNode.getY();
+
+        Line line = new Line();
+        line.setStartX(x1);
+        line.setStartY(y1);
+        line.setEndX(x2);
+        line.setEndY(y2);
+        line.setStroke(Color.GRAY);
+        line.setStrokeWidth(4);
+        return line;
+    }
+
     public String toString(){
         //String s = "Edge: Gewicht: " + weight + " From: " + this.fromNode.toString() + " To: " + this.toNode.toString();
         return this.fromNode.name + "--" + this.toNode.name + "|| ";
@@ -50,7 +69,5 @@ public class Edge {
     public String detailed(){
         return "Edge: Gewicht: " + weight + " From: " + this.fromNode.toString() + " To: " + this.toNode.toString();
     }
-
-
 
 }
